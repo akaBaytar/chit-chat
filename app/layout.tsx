@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
+import type { Metadata } from 'next';
+
+import '../style/globals.css';
 
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
+  src: '../font/GeistVF.woff',
   variable: '--font-geist-sans',
   weight: '100 900',
 });
