@@ -1,9 +1,14 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form';
+
+import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
 
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
+import { CgSpinner } from 'react-icons/cg';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
 
 import Input from './Input';
@@ -11,6 +16,7 @@ import Button from './Button';
 import AuthSocialButton from './AuthSocialButton';
 
 import type { Variant } from '@/types';
+import type { FieldValues, SubmitHandler } from 'react-hook-form';
 
 const AuthForm = () => {
   const [variant, setVariant] = useState<Variant>('LOGIN');
@@ -39,10 +45,20 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    if (variant === 'REGISTER') axios.post('/api/register', data);
+    if (variant === 'REGISTER') {
+      axios
+        .post('/api/register', data)
+        .catch(() => toast.error('An error occurred.'))
+        .finally(() => setIsLoading(false));
+    }
 
     if (variant === 'LOGIN') {
-      // next auth sign in
+      signIn('credentials', { ...data, redirect: false })
+        .then((callback) => {
+          if (callback?.error) toast.error('Invalid credentials.');
+          if (callback?.ok) toast.success('Logged in successfully.');
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -82,7 +98,15 @@ const AuthForm = () => {
           />
           <div>
             <Button fullWidth type='submit' disabled={isLoading}>
-              {variant === 'LOGIN' ? 'Sign in' : 'Register'}
+              {isLoading ? (
+                <span className='flex justify-center items-center'>
+                  <CgSpinner className='animate-spin text-xl text-gray-900' />
+                </span>
+              ) : variant === 'LOGIN' ? (
+                'Log in'
+              ) : (
+                'Register'
+              )}
             </Button>
           </div>
         </form>
