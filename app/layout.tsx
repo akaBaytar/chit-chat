@@ -9,10 +9,10 @@ const geistSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Chat App',
+  title: 'Chit Chat',
   keywords: 'real-time chat, group messaging, photo sharing, instant messaging',
   description:
-    'Connect with friends and communities in real-time with Chat App. Share messages, photos and create groups for communication. Experience secure and interactive conversations anytime, anywhere.',
+    'Connect with friends and communities in real-time with Chit Chat. Share messages, photos and create groups for communication. Experience secure and interactive conversations anytime, anywhere.',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
