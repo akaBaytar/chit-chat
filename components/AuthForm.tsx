@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import { signIn, useSession } from 'next-auth/react';
 
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -21,6 +22,13 @@ import type { FieldValues, SubmitHandler } from 'react-hook-form';
 const AuthForm = () => {
   const [variant, setVariant] = useState<Variant>('LOGIN');
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+  const session = useSession();
+
+  useEffect(() => {
+    if (session.status === 'authenticated') router.push('/user');
+  }, [router, session]);
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {
@@ -48,6 +56,7 @@ const AuthForm = () => {
     if (variant === 'REGISTER') {
       axios
         .post('/api/register', data)
+        .then(() => signIn('credentials', data))
         .catch(() => toast.error('An error occurred.'))
         .finally(() => setIsLoading(false));
     }
@@ -56,7 +65,11 @@ const AuthForm = () => {
       signIn('credentials', { ...data, redirect: false })
         .then((callback) => {
           if (callback?.error) toast.error('Invalid credentials.');
-          if (callback?.ok) toast.success('Logged in successfully.');
+
+          if (callback?.ok) {
+            toast.success('Logged in successfully.');
+            router.push('/user');
+          }
         })
         .finally(() => setIsLoading(false));
     }
@@ -68,7 +81,10 @@ const AuthForm = () => {
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) toast.error('Invalid credentials.');
-        if (callback?.ok) toast.success('Logged in successfully.');
+        if (callback?.ok) {
+          toast.success('Logged in successfully.');
+          router.push('/user');
+        }
       })
       .finally(() => setIsLoading(false));
   };

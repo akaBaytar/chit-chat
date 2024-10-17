@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 
-import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
+import Github from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
 import NextAuth, { AuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import Credentials from 'next-auth/providers/credentials';
 
 import prisma from '@/database';
 
@@ -12,17 +12,17 @@ export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
 
   providers: [
-    GithubProvider({
+    Github({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
 
-    GoogleProvider({
+    Google({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
 
-    CredentialsProvider({
+    Credentials({
       name: 'credentials',
       credentials: {
         email: { label: 'email', type: 'text' },

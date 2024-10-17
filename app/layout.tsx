@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import type { Metadata } from 'next';
 
+import AuthContext from '@/context/Auth';
 import ToasterContext from '@/context/Toaster';
 
 import '../style/globals.css';
@@ -22,8 +23,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} antialiased`}>
-        <ToasterContext />
-        {children}
+        <AuthContext>
+          <ToasterContext />
+          {children}
+        </AuthContext>
       </body>
     </html>
   );
