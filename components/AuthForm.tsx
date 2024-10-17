@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react';
 import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form';
 
+import axios from 'axios';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
 
 import Input from './Input';
@@ -36,19 +37,17 @@ const AuthForm = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (variant === 'REGISTER') {
-      // axios register
-      setIsLoading(true);
-    }
+    setIsLoading(true);
+
+    if (variant === 'REGISTER') axios.post('/api/register', data);
 
     if (variant === 'LOGIN') {
       // next auth sign in
-      setIsLoading(true);
     }
   };
 
   const socialAction = (action: string) => {
-    // next auth social sign in
+    setIsLoading(true);
   };
 
   return (
