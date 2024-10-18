@@ -32,3 +32,11 @@ export type SocialButtonProps = {
   icon: IconType;
   onClick: () => void;
 };
+
+export type DesktopItemProps = {
+  href: string;
+  label: string;
+  icon: IconType;
+  active?: boolean;
+  onClick?: () => void;
+};
