@@ -40,3 +40,11 @@ export type DesktopItemProps = {
   active?: boolean;
   onClick?: () => void;
 };
+
+export type MobileItemProps = {
+  href: string;
+  label: string;
+  icon: IconType;
+  active?: boolean;
+  onClick?: () => void;
+};
