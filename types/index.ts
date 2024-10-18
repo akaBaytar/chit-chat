@@ -1,5 +1,6 @@
 import type { IconType } from 'react-icons';
-import type { Conversation } from '@prisma/client';
+import type { Conversation, Message, User } from '@prisma/client';
+
 import type {
   FieldErrors,
   FieldValues,
@@ -49,7 +50,17 @@ export type MobileItemProps = {
   onClick?: () => void;
 };
 
+export type MessageType = Message & {
+  sender: User;
+  seen: User[];
+};
+
+export type ConversationType = Conversation & {
+  users: User[];
+  messages: MessageType[];
+};
+
 export type ConversationBoxProps = {
-  conversation: Conversation;
-  selected: boolean;
+  conversation: ConversationType;
+  selected?: boolean;
 };
