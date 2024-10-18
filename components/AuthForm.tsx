@@ -27,7 +27,7 @@ const AuthForm = () => {
   const session = useSession();
 
   useEffect(() => {
-    if (session.status === 'authenticated') router.push('/user');
+    if (session.status === 'authenticated') router.push('/users');
   }, [router, session]);
 
   const toggleVariant = useCallback(() => {
@@ -68,7 +68,7 @@ const AuthForm = () => {
 
           if (callback?.ok) {
             toast.success('Logged in successfully.');
-            router.push('/user');
+            router.push('/users');
           }
         })
         .finally(() => setIsLoading(false));
@@ -83,7 +83,7 @@ const AuthForm = () => {
         if (callback?.error) toast.error('Invalid credentials.');
         if (callback?.ok) {
           toast.success('Logged in successfully.');
-          router.push('/user');
+          router.push('/users');
         }
       })
       .finally(() => setIsLoading(false));

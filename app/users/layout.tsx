@@ -1,6 +1,6 @@
 import Sidebar from '@/components/Sidebar';
 
-const UserPageLayout = async ({ children }: { children: React.ReactNode }) => {
+const UsersPageLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <Sidebar>
       <div className='h-full'>{children}</div>
@@ -8,4 +8,4 @@ const UserPageLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default UserPageLayout;
+export default UsersPageLayout;
