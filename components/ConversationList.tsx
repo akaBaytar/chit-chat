@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import clsx from 'clsx';
@@ -36,13 +38,20 @@ const ConversationList = ({
           </div>
         </div>
         <div className='flex flex-col gap-3'>
-          {items.map((item) => (
-            <ConversationBox
-              key={item.id}
-              conversation={item}
-              selected={conversationId === item.id}
-            />
-          ))}
+          {items.length > 0 ? (
+            items.map((item) => (
+              <ConversationBox
+                key={item.id}
+                conversation={item}
+                selected={conversationId === item.id}
+              />
+            ))
+          ) : (
+            <>
+              <p className='text-lg'>No conversations found.</p>
+              <Link href='/users' className='text-sm underline -mt-1'>Click to start a new conversation.</Link>
+            </>
+          )}
         </div>
       </div>
     </aside>

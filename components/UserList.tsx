@@ -9,9 +9,11 @@ const UserList = ({ users }: { users: User[] }) => {
           <h3 className='text-2xl font-bold text-gray-900 py-5'>People</h3>
         </div>
         <div className='flex flex-col gap-3'>
-          {users.map((user) => (
-            <UserBox key={user.id} user={user} />
-          ))}
+          {users.length > 0 ? (
+            users.map((user) => <UserBox key={user.id} user={user} />)
+          ) : (
+            <p className='text-lg'>No users found.</p>
+          )}
         </div>
       </div>
     </aside>
