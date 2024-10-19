@@ -64,3 +64,18 @@ export type ConversationBoxProps = {
   conversation: ConversationType;
   selected?: boolean;
 };
+
+export type Header = {
+  conversation: Conversation & {
+    users: User[];
+  };
+};
+
+export type MessageInputProps = {
+  id: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  errors: FieldErrors;
+  register: UseFormRegister<FieldValues>;
+};

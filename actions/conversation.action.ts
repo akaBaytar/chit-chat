@@ -39,3 +39,27 @@ export const getConversations = async () => {
     return [];
   }
 };
+
+export const getConversation = async (id: string) => {
+  const user = await getUser();
+
+  if (!user?.id) return null;
+
+  try {
+    const conversation = await prisma.conversation.findUnique({
+      where: {
+        id,
+      },
+
+      include: {
+        users: true,
+      },
+    });
+
+    return conversation;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+};

@@ -8,7 +8,7 @@ const UserList = ({ users }: { users: User[] }) => {
         <div className='flex flex-col'>
           <h3 className='text-2xl font-bold text-gray-900 py-5'>People</h3>
         </div>
-        <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3 lg:mt-4'>
           {users.length > 0 ? (
             users.map((user) => <UserBox key={user.id} user={user} />)
           ) : (
