@@ -28,7 +28,7 @@ const ConversationPage = async ({
     <div className='relative lg:ps-80 h-full bg-white z-40 lg:-z-10'>
       <div className='flex flex-col h-full'>
         <ConversationHeader conversation={conversation} />
-        <ConversationBody />
+        <ConversationBody initialMessages={messages} />
         <MessageForm />
       </div>
     </div>
