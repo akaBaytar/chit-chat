@@ -29,7 +29,7 @@ const MessageBox = ({
   const CN_body = clsx('flex flex-col gap-2', isOwn && 'items-end');
   const CN_message = clsx(
     'text-sm w-fit overflow-hidden',
-    isOwn ? 'bg-amber-500 text-gray-100' : 'bg-gray-100 text-gray-900',
+    isOwn ? 'bg-amber-500 text-white' : 'bg-gray-100 text-gray-900',
     message.image ? 'rounded-lg p-0' : 'rounded-lg py-1 px-3'
   );
 
@@ -58,6 +58,9 @@ const MessageBox = ({
             <p>{message.body}</p>
           )}
         </div>
+        {isLast && isOwn && seenList.length > 0 && (
+          <span className='text-xs text-gray-500 font-light -mt-1.5'>{`Seen by ${seenList}`}</span>
+        )}
       </div>
     </div>
   );

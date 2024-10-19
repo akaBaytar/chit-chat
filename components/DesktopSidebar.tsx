@@ -15,7 +15,7 @@ const DesktopSidebar = ({ user }: { user: User }) => {
   const routes = useRoutes();
 
   return (
-    <aside className='hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-20 lg:overflow-y-auto lg:bg-white lg:border-e-[1px] lg:pb-4 lg:flex lg:flex-col lg:justify-between xl:px-6'>
+    <aside className='hidden lg:fixed lg:inset-y-0 lg:left-0 lg:w-20 lg:overflow-y-auto lg:bg-white lg:border-e-[1px] lg:pb-4 lg:flex lg:flex-col lg:justify-between xl:px-6'>
       <nav className='mt-4 flex flex-col justify-between'>
         <ul role='list' className='flex flex-col items-center gap-1'>
           {routes.map(({ href, icon, label, active, onClick }) => (

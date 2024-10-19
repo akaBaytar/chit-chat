@@ -25,7 +25,7 @@ const ConversationHeader: React.FC<Header> = ({ conversation }) => {
       <div className='flex items-center gap-3'>
         <Link
           href='/conversations'
-          className='lg:hidden block text-amber-500 hover:text-amber-600 transition cursor-pointer z-40 mb-1'>
+          className='lg:hidden block text-amber-500 hover:text-amber-600 transition cursor-pointer mb-1'>
           <HiChevronLeft
             size={32}
           />
@@ -39,7 +39,7 @@ const ConversationHeader: React.FC<Header> = ({ conversation }) => {
       <HiEllipsisHorizontal
         size={32}
         onClick={() => {}}
-        className='text-amber-500 hover:text-amber-600 transition cursor-pointer z-40 mb-1'
+        className='text-amber-500 hover:text-amber-600 transition cursor-pointer mb-1'
       />
     </header>
   );

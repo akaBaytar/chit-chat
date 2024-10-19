@@ -35,7 +35,7 @@ const MessageForm = () => {
   };
 
   return (
-    <div className='py-4 px-6 bg-white border-t flex items-center gap-2 lg:gap-4 w-full'>
+    <div className='w-full py-4 px-6 bg-white border-t flex items-center gap-2 lg:gap-4'>
       <CldUploadButton
         options={{ maxFiles: 1 }}
         onSuccess={onSuccess}
