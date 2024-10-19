@@ -6,9 +6,13 @@ import MessageForm from '@/components/Form';
 import { getConversation } from '@/actions/conversation.action';
 import { getMessages } from '@/actions/message.action';
 
-const ConversationPage = async ({ params }: { params: { id: string } }) => {
-  const conversation = await getConversation(params.id);
-  const messages = await getMessages(params.id);
+const ConversationPage = async ({
+  params,
+}: {
+  params: { conversationId: string };
+}) => {
+  const conversation = await getConversation(params.conversationId);
+  const messages = await getMessages(params.conversationId);
 
   if (!conversation) {
     return (
