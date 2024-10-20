@@ -83,21 +83,13 @@ const SettingsModal = ({
                 register={register}
                 disabled={isLoading}
               />
-              <Input
-                id='email'
-                label='Email'
-                required
-                errors={errors}
-                register={register}
-                disabled={isLoading}
-              />
               <div>
                 <label className='block text-sm font-medium leading-6 text-gray-900'>
                   Photo
                 </label>
                 <div className='mt-2 flex items-center gap-x-4'>
                   <Image
-                    src={image || user.image || '/user.png'}
+                    src={image || user?.image || '/user.png'}
                     alt='Avatar'
                     width={48}
                     height={48}
