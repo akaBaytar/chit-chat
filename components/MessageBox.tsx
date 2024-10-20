@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Image from 'next/image';
 
 import clsx from 'clsx';
@@ -5,6 +6,7 @@ import { format } from 'date-fns';
 import { useSession } from 'next-auth/react';
 
 import Avatar from './Avatar';
+import ImageModal from './ImageModal';
 
 import type { MessageType } from '@/types';
 
@@ -15,6 +17,8 @@ const MessageBox = ({
   message: MessageType;
   isLast?: boolean;
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const session = useSession();
 
   const isOwn = session.data?.user?.email === message.sender.email;
@@ -46,12 +50,18 @@ const MessageBox = ({
           </p>
         </div>
         <div className={CN_message}>
+          <ImageModal
+            src={message.image as string}
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+          />
           {message.image ? (
             <Image
               src={message.image}
               height={140}
               width={140}
               alt='image'
+              onClick={() => setModalOpen(true)}
               className='object-cover cursor-pointer hover:scale-105 transition'
             />
           ) : (
