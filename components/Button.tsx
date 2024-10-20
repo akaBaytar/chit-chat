@@ -23,10 +23,11 @@ const Button: React.FC<ButtonProps> = ({
         fullWidth && 'w-full',
         disabled && 'opacity-50 cursor-default',
         danger &&
-          'bg-red-500 hover:bg-rose-600 focus-visible:outline-red-600 text-gray-100',
+          'bg-rose-500 hover:bg-rose-600 text-white focus-visible:outline-red-600',
+        secondary && ' border border-gray-100 hover:bg-gray-100 transition',
         !secondary &&
           !danger &&
-          'text-gray-900 bg-amber-300 hover:bg-amber-400 focus-visible:outline-amber-400'
+          'text-gray-900 bg-amber-300 hover:bg-amber-400 focus-visible:outline-amber-400 transition'
       )}>
       {children}
     </button>
