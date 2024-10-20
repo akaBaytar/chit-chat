@@ -11,6 +11,7 @@ import {
 } from '@headlessui/react';
 
 import Avatar from './Avatar';
+import GroupAvatar from './GroupAvatar';
 import ConfirmModal from './ConfirmModal';
 
 import useOtherUser from '@/hooks/useOtherUser';
@@ -38,7 +39,10 @@ const ProfileDrawer = ({ data, isOpen, onClose }: DrawerProps) => {
 
   return (
     <>
-      <ConfirmModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <Transition show={isOpen} as={Fragment}>
         <Dialog as='div' onClose={onClose} className='relative z-50'>
           <TransitionChild
@@ -79,7 +83,11 @@ const ProfileDrawer = ({ data, isOpen, onClose }: DrawerProps) => {
                       <div className='relative mt-6 flex-1 px-4 sm:px-6'>
                         <div className='flex flex-col items-center'>
                           <div className='mb-2'>
-                            <Avatar user={otherUser} />
+                            {data.isGroup ? (
+                              <GroupAvatar users={data.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
+                            )}
                           </div>
                           <div className='text-lg'>{title}</div>
                           <div className='text-sm text-gray-500'>
@@ -99,6 +107,44 @@ const ProfileDrawer = ({ data, isOpen, onClose }: DrawerProps) => {
                           </div>
                           <div className='w-full py-5 sm:px-0 bg-gray-200 rounded-lg'>
                             <dl className='space-y-4 px-4 sm:px-6'>
+                              {data.isGroup && (
+                                <div>
+                                  <dt className='text-sm text-gray-900 font-medium sm:w-40 sm:flex-shrink-0'>
+                                    People:
+                                  </dt>
+                                  <dd className='mt-1 text-sm text-gray-900 '>
+                                    {data.users
+                                      .map((user) => user.name)
+                                      .join(', ')}
+                                  </dd>
+                                </div>
+                              )}
+                              {data.isGroup && (
+                                <div>
+                                  <dt className='text-sm text-gray-900 font-medium sm:w-40 sm:flex-shrink-0'>
+                                    Emails:
+                                  </dt>
+                                  <dd className='mt-1 text-sm text-gray-900 flex flex-col gap-1'>
+                                    {data.users.map((user, idx) => (
+                                      <span key={user.id}>
+                                        {idx + 1}
+                                        {') '}
+                                        {user.email}
+                                      </span>
+                                    ))}
+                                  </dd>
+                                </div>
+                              )}
+                              {data.isGroup && (
+                                <div>
+                                  <dt className='text-sm text-gray-900 font-medium sm:w-40 sm:flex-shrink-0'>
+                                    Created At:
+                                  </dt>
+                                  <dd className='mt-1 text-sm text-gray-900 '>
+                                    {format(new Date(data.createdAt), 'PPPP p')}
+                                  </dd>
+                                </div>
+                              )}
                               {!data.isGroup && (
                                 <>
                                   <p className='font-medium'>

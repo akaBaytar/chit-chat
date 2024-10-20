@@ -8,6 +8,8 @@ import { format } from 'date-fns';
 import { useSession } from 'next-auth/react';
 
 import Avatar from './Avatar';
+import GroupAvatar from './GroupAvatar';
+
 import useOtherUser from '@/hooks/useOtherUser';
 
 import type { ConversationBoxProps } from '@/types';
@@ -56,7 +58,11 @@ const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
         'w-full relative flex items-center gap-3 p-3 pt-5 hover:bg-gray-100 rounded-lg transition cursor-pointer shadow',
         selected ? 'bg-gray-100' : 'bg-white'
       )}>
-      <Avatar user={otherUser} />
+      {conversation.isGroup ? (
+        <GroupAvatar users={conversation.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
       <div className='min-w-0 flex-1'>
         <div className='focus:outline-none'>
           <div className='flex justify-between items-center'>
