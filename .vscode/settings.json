@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["cloudinary", "clsx", "googleusercontent", "NEXTAUTH"]
+  "cSpell.words": [
+    "cloudinary",
+    "clsx",
+    "googleusercontent",
+    "headlessui",
+    "NEXTAUTH"
+  ]
 }

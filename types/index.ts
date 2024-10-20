@@ -79,3 +79,9 @@ export type MessageInputProps = {
   errors: FieldErrors;
   register: UseFormRegister<FieldValues>;
 };
+
+export type DrawerProps = {
+  data: Conversation & { users: User[] };
+  isOpen: boolean;
+  onClose: () => void;
+};
