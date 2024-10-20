@@ -39,6 +39,7 @@ const SettingsModal = ({
   } = useForm<FieldValues>({
     defaultValues: {
       name: user?.name,
+      email:user?.email,
       image: user?.image,
     },
   });
@@ -73,10 +74,18 @@ const SettingsModal = ({
             <p className='mt-1 text-sm leading-6 text-gray-500'>
               Edit your public profile
             </p>
-            <div className='mt-12 flex flex-col gap-y-8'>
+            <div className='mt-12 flex flex-col gap-y-6'>
               <Input
                 id='name'
                 label='Name'
+                required
+                errors={errors}
+                register={register}
+                disabled={isLoading}
+              />
+              <Input
+                id='email'
+                label='Email'
                 required
                 errors={errors}
                 register={register}
