@@ -3,7 +3,6 @@
 import { MessageInputProps } from '@/types';
 
 const MessageInput: React.FC<MessageInputProps> = ({
-  errors,
   id,
   register,
   placeholder,
