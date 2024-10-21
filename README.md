@@ -4,12 +4,12 @@
 
 ## Live Demo
 
-- You can access the live demo via [Vercel]().
+- You can access the live demo via [Vercel](https://burakbilgili-chitchat.vercel.app/).
 
 ## Screens
 
-[<img src="/public/screen1.png" />]()
-[<img src="/public/screen2.png" />]()
+[<img src="/public/screen1.png" />](https://burakbilgili-chitchat.vercel.app/)
+[<img src="/public/screen2.png" />](https://burakbilgili-chitchat.vercel.app/)
 
 ## Features
 
