@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import prisma from '@/database';
 import getUser from '@/helpers/getUser';
+import { pusherServer } from '@/libs/pusher';
 
 export const DELETE = async (
   _: Request,
@@ -35,6 +36,12 @@ export const DELETE = async (
           hasSome: [user.id],
         },
       },
+    });
+
+    conversation.users.forEach((user) => {
+      if (user.email) {
+        pusherServer.trigger(user.email, 'conversation:delete', conversation);
+      }
     });
 
     return NextResponse.json(deletedConversation);

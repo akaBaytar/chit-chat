@@ -1,16 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import clsx from 'clsx';
+import { find } from 'lodash';
+import { useSession } from 'next-auth/react';
 import { MdOutlineGroupAdd } from 'react-icons/md';
 
 import GroupChatModal from './GroupChatModal';
 import ConversationBox from './ConversationBox';
 
+import { pusherClient } from '@/libs/pusher';
 import useConversation from '@/hooks/useConversation';
 
 import type { User } from '@prisma/client';
@@ -28,7 +31,61 @@ const ConversationList = ({
 
   const router = useRouter();
 
+  const session = useSession();
+
   const { conversationId, isOpen } = useConversation();
+
+  const email = useMemo(() => {
+    return session.data?.user?.email;
+  }, [session.data?.user?.email]);
+
+  useEffect(() => {
+    if (!email) return;
+
+    pusherClient.subscribe(email);
+
+    const newHandler = (conversation: ConversationType) => {
+      setItems((current) => {
+        if (find(current, { id: conversation.id })) return current;
+
+        return [conversation, ...current];
+      });
+    };
+
+    const updateHandler = (conversation: ConversationType) => {
+      setItems((current) =>
+        current.map((currentConversation) => {
+          if (currentConversation.id === conversation.id) {
+            return { ...currentConversation, messages: conversation.messages };
+          }
+
+          return currentConversation;
+        })
+      );
+    };
+
+    const deleteHandler = (conversation: ConversationType) => {
+      setItems((current) => {
+        return [...current.filter((c) => c.id !== conversation.id)];
+      });
+
+      if (conversationId === conversation.id) {
+        router.push('/conversations');
+      }
+    };
+
+    pusherClient.bind('conversation:new', newHandler);
+    pusherClient.bind('conversation:update', updateHandler);
+    pusherClient.bind('conversation:delete', deleteHandler);
+
+    return () => {
+      pusherClient.unsubscribe(email);
+
+      pusherClient.unbind('conversation:new', newHandler);
+      pusherClient.unbind('conversation:update', updateHandler);
+      pusherClient.unbind('conversation:delete', deleteHandler);
+    };
+  }, [conversationId, email, router]);
 
   return (
     <>
